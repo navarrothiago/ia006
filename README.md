@@ -1,5 +1,7 @@
 # IA006 - Aprendizado de Máquina
+# _IA006 - Machine Learning_
 
-Curso de Pós-graduação da FEEC/UNICAMP - 2s2019
+Disciplina do Curso de Pós-graduação da FEEC/UNICAMP - 2s2019
+_Pos-graduation class at FEEC/UNICAMP - 2s2019
 
-[Entrega EFC1](https://docs.google.com/document/d/1GUTDq9vpOdAIS-K5WtjChSHEkGJPKqXxiYrODFRG1rE/edit?usp=sharing)
+[Delivery EFC1](https://docs.google.com/document/d/1GUTDq9vpOdAIS-K5WtjChSHEkGJPKqXxiYrODFRG1rE/edit?usp=sharing)
