@@ -261,18 +261,18 @@ plt.ylim(ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
 import matplotlib.pyplot as plt
 
 # An "interface" to matplotlib.axes.Axes.hist() method
-n, bins, patches = plt.hist(recall, bins=20, color='#0504aa',
+n, bins, patches = plt.hist(pe_, bins=10, color='#0504aa',
                             alpha=0.7)
 plt.grid(axis='y', alpha=0.75)
-plt.xlabel('Recall')
+plt.xlabel('False Positive')
 plt.ylabel('Frequency')
-plt.title('Recall Histogram')
+plt.title('False Positive Histogram')
 #plt.text(0.2, 60, r'$\mu=15, b=3$')
 maxfreq = n.max()
 n
 bins
-maxfreq/len(recall)
-len(recall)
+maxfreq/len(pe_)
+len(pe_)
 # Set a clean upper y-axis limit.
 plt.ylim(ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
 
@@ -318,6 +318,25 @@ plt.ylabel("F-score - un");
 # Para m = 1
 # Valores  de bem próximos de 1 indicam que o classificador  obteve  
 # bons resultados tanto na precisão quanto no recall.
+# %%
+import matplotlib.pyplot as plt
+
+# An "interface" to matplotlib.axes.Axes.hist() method
+n, bins, patches = plt.hist(f_score[:-1], bins=10, color='#0504aa',
+                            alpha=0.7)
+plt.grid(axis='y', alpha=0.75)
+plt.xlabel('F1-score')
+plt.ylabel('Frequency')
+plt.title('F1-score Histogram')
+#plt.text(0.2, 60, r'$\mu=15, b=3$')
+maxfreq = n.max()
+n
+bins
+maxfreq/len(f_score[:-1])
+len(f_score[:-1])
+# Set a clean upper y-axis limit.
+plt.ylim(ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
+
 
 # %% [markdown]
 # ## Item c 
@@ -405,6 +424,7 @@ from sklearn import preprocessing
 import csv
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # %% [markdown]
 # Ler Datasets e converte para float cada entrada
@@ -829,4 +849,33 @@ print(k_neighbors)
 print(f1_score_array)
 
 
+# %%
+from sklearn.neighbors import KNeighborsClassifier
+classifier = KNeighborsClassifier(n_neighbors=5)
+classifier.fit(X_train, y_train)
+y_pred = classifier.predict(X_test)
+
+error = []
+
+# Calculating error for K values between 1 and 40
+for i in range(len(k_neighbors)):
+    knn = KNeighborsClassifier(n_neighbors=k_neighbors[i])
+    knn.fit(X_train, y_train)
+    pred_i = knn.predict(X_test)
+    f1_score_array_tool_box[i] = f1_score(X_test,  pred_i, average='macro')
+
+_= plt.plot(k_neighbors, f1_score_array_tool_box, '--.')
+_= plt.title("F-score evolution tool box");
+_= plt.xlabel("threshold - un");
+_= plt.ylabel("F-score - un");
+
+index_max = np.argmax(np.array(f1_score_array_tool_box))
+_= plt.plot(k_neighbors[index_max], f1_score_array_tool_box[index_max], 'X');
+_= plt.annotate("Maximum value k-neighbor: " + str(k_neighbors[index_max]) +
+                "\nMaximum value F-score: " + str(f1_score_array_tool_box[index_max]),
+            #xy = (matrix_confusion_df['threshold'].iloc[index]/2, f_score.iloc[index]/2))
+             xy = (10, 0.86))
+
+print(k_neighbors)
+print(f1_score_array_tool_box)
 # %%
